@@ -1,11 +1,24 @@
-micromamba create -n SPARK python=3.9 -c conda-forge -c nvidia -c pytorch 
+#!/bin/bash
+
+# Source the mamba configuration
+source configure_environment.sh
+
+# Create the environment if it doesn't exist
+if ! micromamba env list | grep -q "$ENV_NAME"; then
+    echo "Creating environment $ENV_NAME..."
+    micromamba create -n $ENV_NAME python=3.9 -c conda-forge -c nvidia -c pytorch -y
+else
+    echo "Environment $ENV_NAME already exists. Skipping creation."
+fi
+
+# Activate the environment
 eval "$(micromamba shell hook --shell bash)"
-micromamba activate SPARK
+micromamba activate $ENV_NAME
 
 #################### MultiFLARE ####################
 
 pip install --upgrade pip wheel setuptools
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/$PYTORCH_CUDA_VERSION
 pip install iopath
 
 pip install ninja
@@ -17,7 +30,6 @@ pip install --global-option="--no-networks" git+https://github.com/NVlabs/tiny-c
 pip install gpytoolbox opencv-python meshzoo trimesh matplotlib chumpy lpips configargparse open3d wandb
 pip install xatlas
 pip install git+https://github.com/jonbarron/robust_loss_pytorch
-
 
 #################### TrackerAdaptation ####################
 
