@@ -139,4 +139,5 @@ cython_debug/
 MultiFLARE/assets/flame/flame*.pkl
 MultiFLARE/configs/**/*.txt
 TrackerAdaptation/configs/**/*.txt
-TrackerAdaptation/submodules/*
+TrackerAdaptation/submodules/EMOCA/*
+TrackerAdaptation/submodules/SMIRK/*
