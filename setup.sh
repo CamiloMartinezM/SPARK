@@ -47,3 +47,7 @@ pip install 'numpy<2'
 
 # For downloading pre-trained models
 pip install gdown
+
+#################### Environment Variables Setup ####################
+source setup_envars.sh
+
