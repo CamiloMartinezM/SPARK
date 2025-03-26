@@ -292,14 +292,14 @@ class NeuralShader(torch.nn.Module):
     @classmethod
     def revive(cls, path, device='cpu'):
         assert os.path.exists(path)
-        data = torch.load(path, map_location=device)
+        data = torch.load(path, weights_only=False, map_location=device)
         shader = cls(**data['config'], device=device)
         shader.load_state_dict(data['state_dict'], strict=False)
         return shader
 
     def load(self, path):
         assert os.path.exists(path)
-        data = torch.load(path, map_location=self.device)
+        data = torch.load(path, weights_only=False, map_location=self.device)
         self.load_state_dict(data['state_dict'], strict=False)
 
     def save(self, path):
